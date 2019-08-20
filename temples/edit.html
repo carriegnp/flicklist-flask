@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if watchlist|length > 0 %}
+  <h2>My Watchlist</h2>
+  <ul>
+    {% for movie in watchlist: %}
+      <li>
+        <form action="/crossoff" method="post">
+          {{ movie.name }}
+          <input type="hidden" name="crossed-off-movie" value="{{ movie.id }}"/>
+          <input type="submit" value="I Watched it!"/>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<h2>Edit My Watchlist</h2>
+
+<form action="/add" method="post">
+    <label>
+        I want to add
+        <input type="text" name="new-movie"/>
+        to my watchlist.
+    </label>
+    <input type="submit" value="Add It"/>
+</form>
+
+{% if error %}
+  <p class='error'>{{ error }}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Movies I Have Watched:</h2>
+
+<ul>
+  {% for movie in movies %}
+    <li>
+      <h3>{{ movie.name }}</h3>
+      <form action="/rating-confirmation" method="post">
+        <label>
+          My Rating:
+          <select name="rating">
+            {% for rating in ["How was it?", "*", "**", "***", "****", "*****"] %}
+              <option {% if rating==movie.rating %}selected{% endif %}>{{ rating }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <input type="hidden" name="movie_id" value="{{ movie.id }}"/>
+        <input type="submit" value="Rate it!"/> 
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
